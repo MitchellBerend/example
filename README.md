@@ -9,7 +9,7 @@ This repo does require docker and docker-compose.
 
 
 Todo:
-- [ ] make runscript
-- [ ] write tests
+- [x] make runscript
+- [x] write tests
 - [ ] finish readme
 
