@@ -15,8 +15,7 @@ def shorten_post(request):
     try:
         data = json.loads(request.body)
     except json.JSONDecodeError:
-        response = HttpResponse()
-        response.write('''Body is not valid json''')
+        response = HttpResponse('Body is not valid json')
         response.status_code=400
 
         return response
@@ -24,20 +23,17 @@ def shorten_post(request):
 
     # quick json validation
     if 'url' not in data:
-        response = HttpResponse()
-        response.write(f'''Url not present''')
+        response = HttpResponse('Url not present')
         response.status_code=400
         return response
 
     if 'shortcode' in data and len(data.get('shortcode', '1')) != 6:
-        response = HttpResponse()
-        response.write(f'''The provided shortcode is invalid''')
+        response = HttpResponse('The provided shortcode is invalid')
         response.status_code=409
         return response
 
     if 'shortcode' in data and Redirect.objects.filter(shortcode=data.get('shortcode')).exists():
-        response = HttpResponse()
-        response.write(f'''Shortcode already in use''')
+        response = HttpResponse('Shortcode already in use')
         response.status_code=409
         return response
     
@@ -67,8 +63,7 @@ def short_code_get_stats(request, short_code):
         )
         response.status_code = 200
     else:
-        response = HttpResponse()
-        response.write('''Shortcode not found''')
+        response = HttpResponse('Shortcode not found')
         response.status_code = 404
 
     return response
@@ -83,8 +78,7 @@ def short_code_get(request, short_code):
         redirect.save()
         response = HttpResponseRedirect(redirect.url)
     else:
-        response = HttpResponse()
-        response.write('''Shortcode not found''')
+        response = HttpResponse('Shortcode not found')
         response.status_code = 404
 
     return response

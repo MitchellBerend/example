@@ -1,7 +1,10 @@
 # README
 ---
 
+# How to
+---
 
+This repo does require docker and docker-compose.
 
 
 
