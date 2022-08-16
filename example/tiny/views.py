@@ -31,13 +31,15 @@ def shorten_post(request):
         response = HttpResponse('The provided shortcode is invalid')
         response.status_code=409
         return response
-
-    if 'shortcode' in data and Redirect.objects.filter(shortcode=data.get('shortcode')).exists():
-        response = HttpResponse('Shortcode already in use')
-        response.status_code=409
-        return response
     
-    shortcode =  data.get('shortcode', Redirect.generate_random_shortcode())
+    # nested to keep line lenght under 80
+    if 'shortcode' in data:
+        if Redirect.objects.filter(shortcode=data.get('shortcode')).exists():
+            response = HttpResponse('Shortcode already in use')
+            response.status_code=409
+            return response
+    
+    shortcode = data.get('shortcode', Redirect.generate_random_shortcode())
     redirect = Redirect(url=data.get('url'), shortcode=shortcode)
     redirect.save()
 
