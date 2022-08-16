@@ -53,11 +53,11 @@ def short_code_get_stats(request, short_code):
     redirect = Redirect.objects.filter(shortcode=short_code)
     if redirect.exists():
         redirect = redirect[0]
-        last_accessed_date = redirect.last_accessed_date or redirect.created_date
+
         response = JsonResponse(
             data={
-                'created': redirect.created_date.strftime('%Y-%m-%dT%H:%M:%sZ'),
-                'lastRedirect': last_accessed_date.strftime('%Y-%m-%dT%H:%M:%sZ'),
+                'created':  redirect.created_date_str,
+                'lastRedirect': redirect.last_accessed_date_str, 
                 'redirectCount': redirect.redirect_count,
             }
         )

@@ -41,3 +41,22 @@ class Redirect(models.Model):
         pool = string.ascii_letters + string.digits + '_'
 
         return ''.join([random.choice(pool) for _ in range(6)])
+
+    @property
+    def created_date_str(self):
+        timestamp = self.created_date.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
+
+        # maybe make this variable?
+        timezone = 'Z'
+
+        return f'''{timestamp}{timezone}'''
+
+    @property
+    def last_accessed_date_str(self):
+        timestamp = self.last_accessed_date.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
+
+        # maybe make this variable?
+        timezone = 'Z'
+
+        return f'''{timestamp}{timezone}'''
+    

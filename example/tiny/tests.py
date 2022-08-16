@@ -1,3 +1,4 @@
+import datetime
 import json
 import random
 
@@ -89,6 +90,8 @@ class RedirectModelTests(TestCase):
         redirect = Redirect(
             url='https://www.google.com',
             shortcode='abcdef',
+            created_date=datetime.datetime(2022, 1, 1, 0, 0, 0),
+            last_accessed_date=datetime.datetime(2022, 1, 1, 0, 0, 0),
         )
         redirect.save()
         
@@ -102,11 +105,16 @@ class RedirectModelTests(TestCase):
         
         actual_response_json = response.json()
         redirect_count = actual_response_json.get('redirectCount')
+        created_date = actual_response_json.get('created')
+        last_accessed_date = actual_response_json.get('lastRedirect')
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(redirect_count, random_amount)
+        self.assertEqual('2022-01-01T00:00:00.000Z', created_date)
+        self.assertNotEqual('2022-01-01T00:00:00.000Z', last_accessed_date)
 
     def test_missing_shortcode_stats(self):
         response = self.client.get('/abcdef/stats')
 
         self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.content.decode(), 'Shortcode not found')
