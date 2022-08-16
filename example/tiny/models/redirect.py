@@ -34,7 +34,7 @@ class Redirect(models.Model):
     redirect_count = models.IntegerField(
         default=0,
     )
-    
+
     @staticmethod
     def generate_random_shortcode():
         # underscores are also valid
@@ -59,4 +59,3 @@ class Redirect(models.Model):
         timezone = 'Z'
 
         return f'''{timestamp}{timezone}'''
-    
