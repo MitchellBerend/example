@@ -5,13 +5,6 @@ import string
 from django.db import models
 
 
-def generate_random_shortcode():
-    # underscores are also valid
-    pool = string.ascii_letters + string.digits + '_'
-
-    return ''.join([random.choice(pool) for _ in range(6)])
-
-
 class Redirect(models.Model):
 
     url = models.URLField(
