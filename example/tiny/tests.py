@@ -12,7 +12,6 @@ from .models import Redirect
 
 
 class RedirectModelTests(TestCase):
-    
 
     #### POST /shortcode ####
     def test_correct_redirect(self):
