@@ -30,14 +30,14 @@ class Redirect(models.Model):
     )
 
     @staticmethod
-    def generate_random_shortcode():
+    def generate_random_shortcode() -> str:
         # underscores are also valid
         pool = string.ascii_letters + string.digits + '_'
 
         return ''.join([random.choice(pool) for _ in range(6)])
 
     @property
-    def created_date_str(self):
+    def created_date_str(self) -> str:
         timestamp = self.created_date.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
 
         # maybe make this variable?
@@ -46,7 +46,7 @@ class Redirect(models.Model):
         return f'''{timestamp}{timezone}'''
 
     @property
-    def last_accessed_date_str(self):
+    def last_accessed_date_str(self) -> str:
         timestamp = self.last_accessed_date.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
 
         # maybe make this variable?

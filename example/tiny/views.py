@@ -12,7 +12,7 @@ from django.http.response import (
 from .models import Redirect
 
 
-def shorten_post(request) -> JsonResponse | HttpResponse:
+def shorten_post(request) ->  JsonResponse | HttpResponse:
     try:
         data = json.loads(request.body)
     except json.JSONDecodeError:
