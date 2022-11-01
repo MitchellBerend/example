@@ -28,4 +28,3 @@ Todo:
 - [x] make runscript
 - [x] write tests
 - [x] finish readme
-

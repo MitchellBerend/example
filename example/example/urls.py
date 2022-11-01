@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """example URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -17,6 +18,6 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", include('tiny.urls')),
+    path('admin/', admin.site.urls),
+    path('', include('tiny.urls')),
 ]

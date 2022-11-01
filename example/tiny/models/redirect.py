@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import date, datetime
 import random
 import string
@@ -23,7 +24,7 @@ class Redirect(models.Model):
     last_accessed_date = models.DateTimeField(
         default=datetime.now
     )
-    
+
     redirect_count = models.IntegerField(
         default=0,
     )

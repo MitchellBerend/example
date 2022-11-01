@@ -13,6 +13,5 @@ COPY example /srv/example
 WORKDIR /srv/example
 
 CMD ["runserver", "0.0.0.0:8000"]
- 
-ENTRYPOINT ["python", "-u", "manage.py"]
 
+ENTRYPOINT ["python", "-u", "manage.py"]

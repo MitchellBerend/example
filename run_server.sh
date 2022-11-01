@@ -10,4 +10,3 @@ sleep 3
 sudo docker-compose restart example
 
 sudo docker-compose run --rm example migrate
-

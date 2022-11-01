@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime
 import json
 
@@ -6,12 +7,12 @@ from django.http.response import (
         JsonResponse,
         HttpResponse,
         HttpResponseRedirect,
-    ) 
+    )
 
 from .models import Redirect
 
 
-def shorten_post(request):
+def shorten_post(request) -> JsonResponse | HttpResponse:
     try:
         data = json.loads(request.body)
     except json.JSONDecodeError:
@@ -19,7 +20,6 @@ def shorten_post(request):
         response.status_code=400
 
         return response
-
 
     # quick json validation
     if 'url' not in data:
@@ -51,7 +51,7 @@ def shorten_post(request):
     return response
 
 
-def short_code_get_stats(request, short_code):
+def short_code_get_stats(request, short_code: str) -> JsonResponse | HttpResponse:
     redirect = Redirect.objects.filter(shortcode=short_code)
     if redirect.exists():
         redirect = redirect[0]
@@ -59,7 +59,7 @@ def short_code_get_stats(request, short_code):
         response = JsonResponse(
             data={
                 'created':  redirect.created_date_str,
-                'lastRedirect': redirect.last_accessed_date_str, 
+                'lastRedirect': redirect.last_accessed_date_str,
                 'redirectCount': redirect.redirect_count,
             }
         )
@@ -71,7 +71,7 @@ def short_code_get_stats(request, short_code):
     return response
 
 
-def short_code_get(request, short_code):
+def short_code_get(request, short_code: str) -> HttpResponse | HttpResponseRedirect :
     redirect = Redirect.objects.filter(shortcode=short_code)
     if redirect.exists():
         redirect = redirect[0]

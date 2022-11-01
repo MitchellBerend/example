@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import datetime
 import json
 import random
@@ -64,7 +65,6 @@ class RedirectModelTests(TestCase):
 
         self.assertEqual(response.content.decode(), 'Url not present')
 
-    
     #### GET /<shortcode> ####
     def test_existing_shortcode(self):
         redirect = Redirect(
@@ -76,9 +76,8 @@ class RedirectModelTests(TestCase):
         response = self.client.get('/abcdef')
 
         self.assertEqual(response.status_code, 302)
-    
 
-    def test_missing_shortcode(self):
+    def test_missing_shortcode_missing(self):
         response = self.client.get('/abcdef')
 
         self.assertEqual(response.status_code, 404)
@@ -93,7 +92,7 @@ class RedirectModelTests(TestCase):
             last_accessed_date=datetime.datetime(2022, 1, 1, 0, 0, 0),
         )
         redirect.save()
-        
+
         random_amount = random.randint(1,1000)
 
 
@@ -101,7 +100,7 @@ class RedirectModelTests(TestCase):
             self.client.get('/abcdef')
 
         response = self.client.get('/abcdef/stats')
-        
+
         actual_response_json = response.json()
         redirect_count = actual_response_json.get('redirectCount')
         created_date = actual_response_json.get('created')
