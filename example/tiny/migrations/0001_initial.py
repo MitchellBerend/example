@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 (
                     'shortcode',
                     models.CharField(
-                        default=tiny.models.redirect.generate_random_shortcode,
+                        default=tiny.models.redirect.Redirect.generate_random_shortcode,
                         max_length=6,
                         unique=True,
                     ),
