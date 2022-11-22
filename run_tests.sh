@@ -6,4 +6,4 @@ sudo docker-compose run --rm example test
 RV=$?
 sudo docker-compose down -v
 sudo docker rmi example_example
-exit RV
+exit $RV
