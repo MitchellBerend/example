@@ -43,7 +43,7 @@ class Redirect(models.Model):
         # maybe make this variable?
         timezone = 'Z'
 
-        return f'''{timestamp}{timezone}'''
+        return f'''{timestamp}{timezone}breaking test'''
 
     @property
     def last_accessed_date_str(self) -> str:
