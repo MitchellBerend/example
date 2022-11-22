@@ -1,0 +1,12 @@
+
+on:
+  push:
+    branches:
+      - "master"
+jobs:
+  run-test-scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: run-test-scripts
+        run: ./run_tests.sh
