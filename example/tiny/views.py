@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 import json
+from typing import Union
 
 from django.shortcuts import render
+from django.db.models import QuerySet
 from django.http.response import (
     JsonResponse,
     HttpResponse,
@@ -53,12 +55,12 @@ def shorten_post(request) -> JsonResponse | HttpResponse:
     return response
 
 
-def short_code_get_stats(request, short_code: str) -> JsonResponse | HttpResponse:
-    redirect = Redirect.objects.filter(shortcode=short_code)
-    if redirect.exists():
-        redirect = redirect[0]
+def short_code_get_stats(request, short_code: str) -> Union[JsonResponse, HttpResponse]:
+    redirects: QuerySet[Redirect] = Redirect.objects.filter(shortcode=short_code)
+    if redirects.exists():
+        redirect = redirects[0]
 
-        response = JsonResponse(
+        response: Union[JsonResponse, HttpResponse] = JsonResponse(
             data={
                 'created': redirect.created_date_str,
                 'lastRedirect': redirect.last_accessed_date_str,
@@ -73,14 +75,18 @@ def short_code_get_stats(request, short_code: str) -> JsonResponse | HttpRespons
     return response
 
 
-def short_code_get(request, short_code: str) -> HttpResponse | HttpResponseRedirect:
-    redirect = Redirect.objects.filter(shortcode=short_code)
-    if redirect.exists():
-        redirect = redirect[0]
+def short_code_get(
+    request, short_code: str
+) -> Union[HttpResponse, HttpResponseRedirect]:
+    redirects = Redirect.objects.filter(shortcode=short_code)
+    if redirects.exists():
+        redirect = redirects[0]
         redirect.redirect_count += 1
         redirect.last_accessed_date = datetime.now()
         redirect.save()
-        response = HttpResponseRedirect(redirect.url)
+        response: Union[HttpResponse, HttpResponseRedirect] = HttpResponseRedirect(
+            redirect.url
+        )
     else:
         response = HttpResponse('Shortcode not found')
         response.status_code = 404

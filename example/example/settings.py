@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
+from typing import List
 
 """
 Django settings for example project.
@@ -29,7 +30,7 @@ SECRET_KEY = 'django-insecure-m40tadh-#(@-(vq56zc_$f&$(3+k5q06gv-3r)gv18grep^8t0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS: List[str] = []
 
 
 # Application definition
