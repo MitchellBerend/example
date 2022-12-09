@@ -21,9 +21,7 @@ class Redirect(models.Model):
         default=date.today,
     )
 
-    last_accessed_date = models.DateTimeField(
-        default=datetime.now
-    )
+    last_accessed_date = models.DateTimeField(default=datetime.now)
 
     redirect_count = models.IntegerField(
         default=0,
