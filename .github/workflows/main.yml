@@ -11,7 +11,20 @@ jobs:
       - name: run-test-scripts
         run: ./run_tests.sh
 
-  linters:
+  black:
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: psf/black@stable
+        with:
+          options: "--check --skip-string-normalization"
+          src: "."
+          version: "22.3.0"
+
+  mypy:
     strategy:
       matrix:
         python-version: ["3.11"]
@@ -23,11 +36,6 @@ jobs:
       - name: Install requirements
         run: pip install -r requirements.txt
 
-      - uses: psf/black@stable
-        with:
-          options: "--check --skip-string-normalization"
-          src: "."
-          version: "22.3.0"
       - name: Run mypy
         uses: sasanquaneuf/mypy-github-action@releases/v1
         with:
