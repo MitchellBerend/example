@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
+from typing import List
 
 """
 Django settings for example project.
@@ -29,7 +30,7 @@ SECRET_KEY = 'django-insecure-m40tadh-#(@-(vq56zc_$f&$(3+k5q06gv-3r)gv18grep^8t0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS: List[str] = []
 
 
 # Application definition
@@ -91,7 +92,6 @@ DATABASES = {
 }
 
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -132,10 +132,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
-
 
 
 ### I don't care about timezones right now

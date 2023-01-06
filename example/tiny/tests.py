@@ -10,15 +10,13 @@ from django.urls import reverse
 from .models import Redirect
 
 
-
-
 class RedirectModelTests(TestCase):
 
     #### POST /shortcode ####
     def test_correct_redirect(self):
         post_body = {
-                'url': 'https://www.google.com',
-                'shortcode': 'abcdef',
+            'url': 'https://www.google.com',
+            'shortcode': 'abcdef',
         }
 
         response = self.client.post(
@@ -30,14 +28,13 @@ class RedirectModelTests(TestCase):
         correct_response_json = {'shortcode': 'abcdef'}
         actual_response_json = response.json()
 
-
         self.assertEqual(response.status_code, 201)
 
         self.assertEqual(actual_response_json, correct_response_json)
 
     def test_missing_shortcode(self):
         post_body = {
-                'url': 'https://www.google.com',
+            'url': 'https://www.google.com',
         }
 
         response = self.client.post(
@@ -82,7 +79,6 @@ class RedirectModelTests(TestCase):
 
         self.assertEqual(response.status_code, 404)
 
-
     #### GET /<shortcode>/stats
     def test_existing_shortcode_stats(self):
         redirect = Redirect(
@@ -93,8 +89,7 @@ class RedirectModelTests(TestCase):
         )
         redirect.save()
 
-        random_amount = random.randint(1,1000)
-
+        random_amount = random.randint(1, 1000)
 
         for _ in range(random_amount):
             self.client.get('/abcdef')
