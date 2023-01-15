@@ -44,13 +44,6 @@ workflows:
             branches:
               only: master
 
-  build-docker-image:
-    jobs:
-      - build-docker-latest:
-          filters:
-            branches:
-              only: master
-
   build-and-push-tag:
     jobs:
       - build-docker-tag:
