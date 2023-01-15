@@ -1,0 +1,28 @@
+version: 2.1
+
+jobs:
+  build-docker-latest:
+    working_directory: /repo
+    docker:
+      - image: docker:23.0.0-rc.1-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build -t $DOCKER_USER/example:latest .
+      - run:
+          name: Push application Docker image
+          command: |
+            echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+            docker push "$DOCKER_USER/example:latest"
+            printf "pushing $DOCKER_USER/example:latest"
+
+workflows:
+  build-docker-image:
+    jobs:
+      - build-docker-latest:
+          filters:
+            branches:
+              only: master
