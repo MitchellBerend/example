@@ -23,3 +23,4 @@ Running the app this way create some garbage. to clean this up run
 `make test`. This will delete the file store of the postgres database and
 the docker image that was built last by the `make run` script.
 
+There is also a prebuild [image](https://hub.docker.com/r/mitchellberend/example).
