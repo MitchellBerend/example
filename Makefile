@@ -16,7 +16,7 @@ test:
 	@sudo docker-compose run --rm example test
 	@RV=$?
 	@sudo docker-compose down -v
-	@sudo docker rmi example_example
+	@sudo docker rmi mitchellberend/example
 	@exit $$RV
 
 .PHONY: clean

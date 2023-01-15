@@ -29,12 +29,12 @@ jobs:
       - run:
           name: Build application Docker image
           command: |
-            docker build -t $DOCKER_USER/message_bus:$CIRCLE_TAG -f docker/prod.Dockerfile .
+           docker build -t $DOCKER_USER/example:$CIRCLE_TAG .
       - run:
           name: Push application Docker image
           command: |
             echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-            docker push "$DOCKER_USER/message_bus:$CIRCLE_TAG"
+            docker push "$DOCKER_USER/example:$CIRCLE_TAG"
 
 workflows:
   build-docker-image:
