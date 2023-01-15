@@ -2,6 +2,7 @@
 version: "3"
 services:
   example:
+    image: mitchellberend/example:latest
     depends_on:
       - db
     build: .
