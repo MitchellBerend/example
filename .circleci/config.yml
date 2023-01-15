@@ -19,6 +19,23 @@ jobs:
             docker push "$DOCKER_USER/example:latest"
             printf "pushing $DOCKER_USER/example:latest"
 
+  build-docker-tag:
+    working_directory: /repo
+    docker:
+      - image: docker:23.0.0-rc.1-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build -t $DOCKER_USER/message_bus:$CIRCLE_TAG -f docker/prod.Dockerfile .
+      - run:
+          name: Push application Docker image
+          command: |
+            echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+            docker push "$DOCKER_USER/message_bus:$CIRCLE_TAG"
+
 workflows:
   build-docker-image:
     jobs:
@@ -26,3 +43,12 @@ workflows:
           filters:
             branches:
               only: master
+
+  build-and-push-tag:
+    jobs:
+      - build-docker-tag:
+          filters:
+            tags:
+              only: /^\d\.\d\.\d/
+            branches:
+              ignore: /.*/
